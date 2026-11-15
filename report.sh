@@ -6,7 +6,7 @@ TEMP_FILE="$OUTPUT_FILE.tmp"
 
 GITHUB_URL="https://github.com/nour4557/viikko3-Bash-and-a-Server-Status-Report"
 
-GENERATED_AT=$(date)
+GENERATED_AT=$(TZ=UTC date '+%d.%m.%Y %H:%M:%S UTC (UTC%:z)')
 UPTIME_TEXT=$(uptime -p)
 DISK_USAGE=$(df -P / | awk 'NR == 2 {print $5}' | cut -d'%' -f1)
 MEM_TOTAL=$(free -m | awk '/Mem:/ {print $2}')
