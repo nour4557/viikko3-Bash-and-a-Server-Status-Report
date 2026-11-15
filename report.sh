@@ -282,7 +282,7 @@ cat > "$TEMP_FILE" <<EOF
         <h3>Reboot test</h3>
         <p>
             I learned how to check if the cron service is active
-    and if the report page is working.
+            and if the report page is working.
         </p>
     </section>
 
