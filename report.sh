@@ -21,11 +21,11 @@ MEM_AVAILABLE=$(free -m | awk '/Mem:/ {print $7}')
 
 # Create a function that checks disk usage
 check_disk() {
-   #80% or higher =status warning
+   #80% or higher, status= warning
     if [ "$DISK_USAGE" -ge 80 ]; then
         DISK_STATUS="WARNING"
     else
-        DISK_STATUS="OK" #below 80%=status OK
+        DISK_STATUS="OK" #below 80%, status =OK
     fi
 }
 
