@@ -1,27 +1,38 @@
 #!/usr/bin/env bash
 
+# Create a directory where the HTML report will be saved
 OUTPUT_DIR="/var/www/html/viikko3"
-OUTPUT_FILE="$OUTPUT_DIR/index.html"
-TEMP_FILE="$OUTPUT_FILE.tmp"
 
+# Location and name of the final HTML file
+OUTPUT_FILE="$OUTPUT_DIR/index.html"
+#temporary file
+TEMP_FILE="$OUTPUT_FILE.tmp"
+# GitHub repository link
 GITHUB_URL="https://github.com/nour4557/viikko3-Bash-and-a-Server-Status-Report"
 
 GENERATED_AT=$(TZ=UTC date '+%d.%m.%Y %H:%M:%S UTC (UTC%:z)')
+#how long the server has been running
 UPTIME_TEXT=$(uptime -p)
 DISK_USAGE=$(df -P / | awk 'NR == 2 {print $5}' | cut -d'%' -f1)
+#get the total amount of RAM
 MEM_TOTAL=$(free -m | awk '/Mem:/ {print $2}')
+# Get the available amount of RAM
 MEM_AVAILABLE=$(free -m | awk '/Mem:/ {print $7}')
 
+# Create a function that checks disk usage
 check_disk() {
+   #80% or higher =status warning
     if [ "$DISK_USAGE" -ge 80 ]; then
         DISK_STATUS="WARNING"
     else
-        DISK_STATUS="OK"
+        DISK_STATUS="OK" #below 80%=status OK
     fi
 }
 
+#run function
 check_disk
 
+# Start creating the temporary HTML file
 cat > "$TEMP_FILE" <<EOF
 <!DOCTYPE html>
 <html lang="en">
@@ -301,4 +312,5 @@ cat > "$TEMP_FILE" <<EOF
 </html>
 EOF
 
+#move the completed temporary file to the final html location
 mv "$TEMP_FILE" "$OUTPUT_FILE"
